@@ -1,40 +1,46 @@
 #include<iostream>
 #include<fstream>
 #include<cstring>
+#include "sorts.h"
 
 using namespace std;
 
-class fiostream: public fstream
-{
-      public:
-             string filename;
-             fiostream(string s):fstream((char*)s.c_str()){filename=s;};
-             void open(string s)
-             {
-                  fstream:open((char*)s.c_str());
-                  filename=s;
-             }
-             string getFileName(){return filename;};
-};
-
 int menu();
-string createU(fiostream&);
-void appU(fiostream&);
-void printU(fiostream&);
-void createS(string);
+int safeInt();
+string createU(fstream&);
+void appU(fstream&);
+void printU(istream&);
+void createS(fstream&, string);
 void printS(string);
+
 int main()
 {
     int x = 0;
     string myFile="default.txt";
-    fiostream dataFile(myFile);
+    //create if it doesn't exist
+    fstream dataFile((char*)myFile.c_str(), ios::out|ios::app);
+    dataFile.close();//close it because it's only open for write
+    dataFile.open((char*)myFile.c_str());//open it again, properly this time
+    myFile="sorted_"+myFile;//keeps the sorted file's name in mind
+    
     while(x!=6)
     {
-               myFile="sorted_"+myFile;
-               dataFile.clear();
-               x=menu();
+               dataFile.clear();//clear the data file's flags
+               
+               //set the read position to the beginning of the file
+               dataFile.seekg(0, dataFile.beg);
+               
+               x=menu();//bring up the menu and use the user's input for:
+
+               //creates or opens a user defined file
                if(x==1) myFile = createU(dataFile);
+               else if(x==2) appU(dataFile);//add integers to the file
+               else if(x==3) printU(dataFile);//display file contents
+               else if(x==4) createS(dataFile, myFile);//creates a sorted file
+               else if(x==5) printS(myFile);//display sorted contents
     }
+    
+    //flush and close the data file
     dataFile.flush();
     dataFile.close();
     return 0;
@@ -49,15 +55,27 @@ int menu()
      "4. Create a sorted data file\n"
      "5. Print the contents of the sorted file\n"
      "6. Quit\n";
-     
-     //x
-     int x;
-     cin>>x;
+     int x=safeInt();
      return x;
 }
 
+int safeInt()//people like to enter nonsense
+{
+     int x;
+     do
+     {
+         if(cin.fail())
+         {
+                       cin.clear();//clear cin's flags
+                       cin.ignore(INT_MAX, '\n');//ignore any nonsense up to a new line
+         }
+         cout<<"user: ";
+         cin>>x;
+     }while(cin.fail());//if the user enters a non integer, ask again
+     return x;
+}
 
-string createU(fiostream &fio)//create a new data file or open an existing one
+string createU(fstream &fio)//create a new data file or open an existing one
 {
        string f;
        fio.flush();
@@ -65,70 +83,52 @@ string createU(fiostream &fio)//create a new data file or open an existing one
        
        cout<<"name of the file: ";
        cin>>f;
-       fio.open(f);
-       return f;
+       fio.open((char*)f.c_str(), ios::out|ios::app);
+       fio.close();
+       fio.open((char*)f.c_str());
+       return "sorted_"+f;
 }
 
-void appU(fiostream &fio)
+void appU(fstream &fio)
 {
-     int x;
-     
-     do
-     {
-         cin.clear();
-         cin.ignore(INT_MAX, '\n');
-         cout<<"Enter a new integer, please: ";
-         cin>>x;
-     }while(cin.fail());
-     
      //set write position to the end of the file. like ios::app
      fio.seekp(0, fio.end);
-     //*************************************************
+     
+     cout<<"Enter an new integer\n";
+     int x = safeInt();
+     //wait for user's int and put it in the file
      fio<<x<<endl;
 }
 
-void printU(fiostream &fio)
-{
-     int x = 0;
-     //set the read position to the beginning of the file
-     fio.seekg(0, fio.beg);
-     while(!fio.eof())
-     {
-                      //***********************************
-                      fio>>x;
-                      cout<<x<<endl;
-     }
-}
+//read the next int and print it until the file is no good.
+void printU(istream &fio){for(int x=0; fio>>x;) cout<<x<<endl;}
 
-void createS(string f)
+void createS(fstream &fio, string f)
 {
-     int x = 0;
-     string temp;
-     ifstream fio((char*)f.c_str());
-     while(!fio.eof())
-     {
-                      getline(fio, temp);
-                      x++;
-     }
+     int x = 0, y;
+     ofstream sorted((char*)f.c_str());//create a file to store the sorted data
+     
+     while(fio>>y)x++; //count how many numbers are in the data file
+     
+     //reposition the reading pointer to the beinning of the file
      fio.clear();
      fio.seekg(0, ios::beg);
-     int a[x];
-     for(int i=0; i<x; i++)
-     {
-              fio>>a[i];
-              cout<<a[i]<<endl;
-     }
+     
+     int a[x]; //create an array of the correct size
+     for(int i=0; i<x; i++) fio>>a[i];//fill the array with data
+     
+     quickSort(a, x);//sort the array using quick sort(sorts.h)
+     
+     for(int i=0; i<x; i++)sorted<<a[i]<<endl;//save the sorted array to file
+     
+     //flush and close the sorted file
+     sorted.flush();
+     sorted.close();
 }
 
 void printS(string f)
 {
-     f="sorted_"+f;
-     int x = 0;
-     ifstream fio((char*)f.c_str());
-     while(!fio.eof())
-     {
-                      fio>>x;
-                      cout<<x<<endl;
-     }
-     fio.close();
+     ifstream sorted((char*)f.c_str());//open the sorted file
+     printU(sorted);//print it's contents
+     sorted.close();//and close it
 }

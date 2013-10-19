@@ -19,6 +19,7 @@ void mySort(int[]);
 void bubbleSort(int[]);
 int partitions(int[], int, int);
 void quickSort(int[], int, int);
+void quickSort(int[], int);
 void quickSort(int[]);
 void displayData(int[]);
 void swap(int&, int&);
@@ -98,6 +99,7 @@ void quickSort(int a[], int p, int r)//p=first element, r=last element
 }
 
 void quickSort(int a[]){quickSort(a, 0, t000-1);} //used for passing this function.
+void quickSort(int a[], int b){quickSort(a, 0, b-1);}
 
 void displayData(int a[]){for(int i=0; i<t000; i++) cout<<a[i]<<endl;}//output each element in the array
 
