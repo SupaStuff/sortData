@@ -92,7 +92,7 @@ ifstream NumberDelete ("numbers.txt");
     {
     while (getline(NumberDelete,line))
     {
-        if (line != del) //reads every line to a new file except the one entered
+        if (line != del) 
         temp << line << "\n";
         
         else 
@@ -118,9 +118,9 @@ deleted = line;
 
 
 
-
+void SelectionSort(int a[]) 
 	int tmp;
-	for( int i = 0; i < numbers; i++)
+	for( int i = 0; i < 5; i++)
 		
 		cout << data[i] << " "; 
 
