@@ -75,3 +75,63 @@ void swap(int &a, int &b) //swaps the values of 2 ints. the passed ints are affe
 }
 
 #endif
+
+
+------------------------------------------------------------
+void deleteNumber (void)
+{
+ifstream NumberDelete ("numbers.txt");
+    ofstream temp ("temp.txt");
+    string del, line, deleted;
+    bool flag = false;
+    
+    cout << "Which number you want to delete?? ";
+    getline (cin, del);
+    
+    if (NumberDelete.is_open())
+    {
+    while (getline(NumberDelete,line))
+    {
+        if (line != del) //reads every line to a new file except the one entered
+        temp << line << "\n";
+        
+        else 
+{
+flag = true;
+deleted = line;
+}
+    }
+    
+    if (flag) cout << "\nNumber \"" << deleted << "\" found and deleted.";
+        else cout << "\nNumber not found.";
+}
+    else cout << "\nUnable to open file.";
+    
+    NumberDelete.close();
+    temp.close();
+    
+    remove("numbers.txt");
+    rename("temp.txt","numberstxt");
+}
+
+
+
+
+
+
+	int tmp;
+	for( int i = 0; i < numbers; i++)
+		
+		cout << data[i] << " "; 
+
+	
+
+	for (int i = 0; i < 5 -1; i++)
+
+		for (int j = i+1; j < 5; j++)
+
+			if (data[i] > data[j])
+			{
+				tmp = data[i];
+				data[i] = data[j];
+				data[j] = tmp;
