@@ -33,62 +33,41 @@ int safeInt()//people like to enter nonsense
      return x;
 }
 
-
-
-
-#include<iostream>
-
-using namespace std;
-
-int menu()
+int sortExp()
 {
-    
-    int a,b,c,d;
- cout<<"Sorting Experiments\n---------------------\n"
+     cout<<"Sorting Experiments\n---------------------\n"
      "1. Data Managment\n"
      "2. Test Run\n"
      "3. Statistics\n"
      "4. Quit\n";
      
-    
-     cin>>a;
-     
+    //get an int from the user
+     int x=safeInt();
+     return x;
+}
      
 
-       if(a ==1){ 
-        cout<<"Data Managment\n---------------------\n"
+int dataMan()
+{
+     cout<<"Data Managment\n---------------------\n"
      "1. Create New Data File\n"
      "2. Add Data to file\n"
      "3. Delete Data from File\n";
-     cin>>b;
-     }
-     
-     
-        if(a ==2){
+    
+    //get an int from the user
+     int x=safeInt();
+     return x;
+}
+          
+int testRun()
+{
        
-       cout<<"Test Run\n---------------------\n"
+     cout<<"Test Run\n---------------------\n"
      "1. Bubble sort\n"
      "2. Quick sort\n"
      "3. Selection sort\n" ;
-      cin>>c;
-     
-     }
-     
-       if (a ==3){
-  
-        cout<<"Statisticsn\n---------------------\n"
-      
-        
-    
-       
-       }
-      
-      else if(a ==4){
-    cout << "you quit ";
 
-} 
-    
-system("pause");
-return 0;
+    //get an int from the user
+     int x=safeInt();
+     return x;
 }
-
