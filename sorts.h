@@ -74,10 +74,9 @@ void swap(int &a, int &b) //swaps the values of 2 ints. the passed ints are affe
      b=t;
 }
 
-#endif
 
 
-------------------------------------------------------------
+
 void deleteNumber (void)
 {
 ifstream NumberDelete ("numbers.txt");
@@ -135,3 +134,6 @@ void SelectionSort(int a[])
 				tmp = data[i];
 				data[i] = data[j];
 				data[j] = tmp;
+
+
+#endif

@@ -2,6 +2,7 @@
 #include<fstream>
 #include<cstring>
 #include "sorts.h"
+#include "menus.cpp"
 
 using namespace std;
 
@@ -9,6 +10,7 @@ int menu();
 int safeInt();
 string createU(fstream&);
 void appU(fstream&);
+void removeU(fstream&);
 void printU(istream&);
 void createS(fstream&, string);
 void printS(string);
@@ -18,7 +20,7 @@ int main()
     int x = 0;
     string myFile="default.txt";
     //create if it doesn't exist
-    fstream dataFile((char*)myFile.c_str(), ios::out|ios::app);
+    fstream dataFile((char*)myFile.c_str(), ios::out|ios::in);
     dataFile.close();//close it because it's only open for write
     dataFile.open((char*)myFile.c_str());//open it again, properly this time
     myFile="sorted_"+myFile;//keeps the sorted file's name in mind
@@ -38,41 +40,13 @@ int main()
                else if(x==3) printU(dataFile);//display file contents
                else if(x==4) createS(dataFile, myFile);//creates a sorted file
                else if(x==5) printS(myFile);//display sorted contents
+               else if(x==7) removeU(dataFile);
     }
     
     //flush and close the data file
     dataFile.flush();
     dataFile.close();
     return 0;
-}
-
-int menu()
-{
-     cout<<"Data File Operations\n---------------------\n"
-     "1. Create new data file or open an existing one\n"
-     "2. Add a new integer value to unsorted data file\n"
-     "3. Print the contents of the unsorted data file\n"
-     "4. Create a sorted data file\n"
-     "5. Print the contents of the sorted file\n"
-     "6. Quit\n";
-     int x=safeInt();
-     return x;
-}
-
-int safeInt()//people like to enter nonsense
-{
-     int x;
-     do
-     {
-         if(cin.fail())
-         {
-                       cin.clear();//clear cin's flags
-                       cin.ignore(INT_MAX, '\n');//ignore any nonsense up to a new line
-         }
-         cout<<"user: ";
-         cin>>x;
-     }while(cin.fail());//if the user enters a non integer, ask again
-     return x;
 }
 
 string createU(fstream &fio)//create a new data file or open an existing one
@@ -98,6 +72,30 @@ void appU(fstream &fio)
      int x = safeInt();
      //wait for user's int and put it in the file
      fio<<x<<endl;
+}
+
+void removeU(fstream &fio)
+{
+     //set write position to the end of the file. like ios::app
+     
+     //cout<<"Enter an integer to delete\n";
+     //int x = safeInt();
+     //wait for user's int and put it in the file
+     string s = "";
+     while(!fio.eof())
+     {
+             getline(fio, s);
+             int size = s.length();
+             char num[size];
+             fio.read(num, size);
+             cout<<s<<endl;
+             if(atoi(s.c_str()) == 53)
+             {
+                                fio.write("15\n", 3);
+                                fio.flush();
+                                fio.close();
+             }
+     }
 }
 
 //read the next int and print it until the file is no good.
