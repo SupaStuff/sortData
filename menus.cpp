@@ -11,7 +11,7 @@ int typeMenu();
 void worstCase(int[], int);
 void bestCase(int[], int);
 void randomCase(int[], int);
-
+/*
 int menu()
 {
      cout<<"Data File Operations\n---------------------\n"
@@ -27,7 +27,7 @@ int menu()
      int x=safeInt();
      return x;
 }
-
+*/
 int safeInt()//people like to enter nonsense
 {
      int x;
@@ -46,11 +46,11 @@ int safeInt()//people like to enter nonsense
 
 int sortExp()
 {
-     cout<<"Sorting Experiments\n---------------------\n"
+     cout<<"\nSorting Experiments\n---------------------\n"
      "1. Data Managment\n"
      "2. Test Run\n"
      "3. Statistics\n"
-     "4. Quit\n";
+     "0. Quit\n";
      
     //get an int from the user
      int x=safeInt();
@@ -60,7 +60,7 @@ int sortExp()
 
 int dataMan()
 {
-     cout<<"Data Managment\n---------------------\n"
+     cout<<"\nData Managment\n---------------------\n"
      "1. Create New Data File\n"
      "2. Add Data to file\n"
      "3. Delete Data from File\n";
@@ -73,7 +73,7 @@ int dataMan()
 int testRun()
 {
        
-     cout<<"Test Run\n---------------------\n"
+     cout<<"\nTest Run\n---------------------\n"
      "1. Bubble sort\n"
      "2. Quick sort\n"
      "3. Selection sort\n" ;
@@ -86,7 +86,7 @@ int testRun()
 int typeMenu()
 {
        
-     cout<<"Data File\n---------------------\n"
+     cout<<"\nData File\n---------------------\n"
      "1. RandomData\n"
      "2. WorstCase\n"
      "3. BestCase\n" ;
@@ -95,6 +95,14 @@ int typeMenu()
     //get an int from the user
      int x=safeInt();
      return x;
+}
+
+int howMuch()
+{
+    cout<<"How many data items?\n";
+    //get an int from the user
+    int x=safeInt();
+    return x;
 }
 
 void worstCase(int a[], int b){for(int i=0; i<b; i++) a[i] = b-i;}

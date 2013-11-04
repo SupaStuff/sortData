@@ -7,6 +7,33 @@
 
 using namespace std;
 
+void dataManip();
+void testRunit();
+
+int main()
+{
+    int x = -1;
+    while(x!=0)
+    {
+               x=sortExp();
+               if(x==1) dataManip();
+               else if(x==2) testRunit();
+               //else if(x==3) stats();
+    }
+    return 0;
+}
+
+void dataManip()
+{
+     int x = dataMan();
+}
+
+void testRunit()
+{
+     int x = testRun();
+}
+
+/*
 int main()
 {
     int x = 0;
@@ -39,3 +66,4 @@ int main()
     dataFile.close();
     return 0;
 }
+*/
