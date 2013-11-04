@@ -10,7 +10,11 @@ int dataMan();
 int typeMenu();
 void worstCase(int[], int);
 void bestCase(int[], int);
+int randomCase();
 void randomCase(int[], int);
+int userCase();
+void userCase(int[], int);
+
 /*
 int menu()
 {
@@ -63,7 +67,8 @@ int dataMan()
      cout<<"\nData Managment\n---------------------\n"
      "1. Create New Data File\n"
      "2. Add Data to file\n"
-     "3. Delete Data from File\n";
+     "3. Delete Data from File\n"
+     "0. Go Back\n";
     
     //get an int from the user
      int x=safeInt();
@@ -76,7 +81,8 @@ int testRun()
      cout<<"\nTest Run\n---------------------\n"
      "1. Bubble sort\n"
      "2. Quick sort\n"
-     "3. Selection sort\n" ;
+     "3. Selection sort\n"
+     "0. Go Back\n";
 
     //get an int from the user
      int x=safeInt();
@@ -90,7 +96,8 @@ int typeMenu()
      "1. RandomData\n"
      "2. WorstCase\n"
      "3. BestCase\n" ;
-     "4. Saved File\n" ;
+     "4. Saved File\n"
+     "0. Go Back\n";
 
     //get an int from the user
      int x=safeInt();
@@ -109,8 +116,18 @@ void worstCase(int a[], int b){for(int i=0; i<b; i++) a[i] = b-i;}
 
 void bestCase(int a[], int b){for(int i=0; i<b; i++) a[i] = i;}
 
-void randomCase(int a[], int b)
+void randomCase(int a[], int b){for(int i=0; i<b; i++) a[i]=randomCase();}
+
+void userCase(int a[], int b){for(int i=0; i<b; i++)a[i] = userCase();}
+
+int userCase()
+{
+             cout<<"Enter an new integer\n";
+             return safeInt();
+}
+
+int randomCase()
 {
      srand(time(0));
-     for(int i=0; i<b; i++) a[i]=rand()%9001;
+     return rand()%9001;
 }

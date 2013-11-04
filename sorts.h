@@ -37,6 +37,20 @@ void bubbleSort(int a[], int b)
      }
 }
 
+void selectionSort(int a[], int b) 
+{	
+    int tmp, min;
+	for (int i = 0; i < b-1; i++)
+    {
+        min=i;
+		for (int j = i+1; j < b; j++) if (a[j] > a[min]) min=j;
+		
+        tmp = a[i];
+		a[i] = a[min];
+		a[min] = tmp;
+    }
+}
+
 int partitions(int a[], int p, int r)
 {
    int i = p-1;
@@ -117,18 +131,6 @@ deleted = line;
 
 */
 
-void selectionSort(int a[], int b) 
-{	
-    int tmp, min;
-	for (int i = 0; i < b-1; i++)
-    {
-        min=i;
-		for (int j = i+1; j < b; j++) if (a[j] > a[min]) min=j;
-		
-        tmp = a[i];
-		a[i] = a[min];
-		a[min] = tmp;
-    }
-}
+
 
 #endif

@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<cstring>
+#include "menus.cpp"
 
 string createU(fstream&);
 void appU(fstream&);
@@ -8,6 +9,65 @@ void removeU(fstream&);
 void printU(istream&);
 void createS(fstream&, string);
 void printS(string);
+void createF(int[], int, int);
+void appF(int);
+string nameChange();
+int lastInt(fstream&);
+
+string nameChange()
+{
+       string s;
+       cout<<"\nName of the file(leave blank for default.txt): ";
+       getline(s, cin);
+       if (s.length()==0) s="default.txt";
+       return s;
+}
+
+int lastInt(fstream &fio)
+{
+    char ch='\0';
+    fio.seekg(-1, ios_base::eof);
+    while((int)fio.tellg()>=1 && ch != '\n')
+    {
+                              fio.get(ch);
+                              if(ch!='\n') fio.seekg(-2,ios_base::cur);
+    }
+    int x;
+    fio>>x;
+    fio.clear();
+    fio.seekp(0, fio.end);
+    return x;
+}
+
+void createF(int a[], int b, int x)
+{
+     x--;
+     string fName[4] = {"random.txt","worst.txt","best.txt","default.txt"};
+     
+     if(x==3)fName[x] = nameChange();
+
+     ofstream fio((char*)fName[x].c_str());//create a file to store the data
+     for(int i=0; i<b; i++) fio<<a[i]<<endl;//save the array to file
+     fio.flush();
+     fio.close();
+}
+
+void appF(int x)
+{
+     x--;
+     string fName[4] = {"random.txt","worst.txt","best.txt","default.txt"};
+     
+     if(x==3)fName[x] = nameChange();
+     
+     fstream fio((char*)fName[x].c_str(), ios::out|ios::in);//open a file to store the data
+     int y = lastInt(fio);
+     x++;
+     
+     if(x==1) fio<<randomCase();
+     else if(x==2)fio<<y-1<<endl;
+     else if(x==3)fio<<y+1<<endl;
+     else if(x==4) fio<<userCase();
+}
 
 string createU(fstream &fio)//create a new data file or open an existing one
 {
