@@ -10,6 +10,7 @@ using namespace std;
 
 void mySort(int[], int);
 void bubbleSort(int[], int);
+void selectionSort(int[], int);
 int partitions(int[], int, int);
 void quickSort(int[], int, int);
 void quickSort(int[], int);
@@ -74,7 +75,7 @@ void swap(int &a, int &b) //swaps the values of 2 ints. the passed ints are affe
      b=t;
 }
 
-
+/*
 
 
 void deleteNumber (void)
@@ -114,26 +115,20 @@ deleted = line;
 }
 
 
+*/
 
-
-
-void SelectionSort(int a[]) 
-	int tmp;
-	for( int i = 0; i < 5; i++)
+void selectionSort(int a[], int b) 
+{	
+    int tmp, min;
+	for (int i = 0; i < b-1; i++)
+    {
+        min=i;
+		for (int j = i+1; j < b; j++) if (a[j] > a[min]) min=j;
 		
-		cout << data[i] << " "; 
-
-	
-
-	for (int i = 0; i < 5 -1; i++)
-
-		for (int j = i+1; j < 5; j++)
-
-			if (data[i] > data[j])
-			{
-				tmp = data[i];
-				data[i] = data[j];
-				data[j] = tmp;
-
+        tmp = a[i];
+		a[i] = a[min];
+		a[min] = tmp;
+    }
+}
 
 #endif

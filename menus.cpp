@@ -1,5 +1,16 @@
 #include<iostream>
+#include<ctime>
 using namespace std;
+
+int menu();
+int safeInt();
+int sortExp();
+int testRun();
+int dataMan();
+int typeMenu();
+void worstCase(int[], int);
+void bestCase(int[], int);
+void randomCase(int[], int);
 
 int menu()
 {
@@ -70,4 +81,28 @@ int testRun()
     //get an int from the user
      int x=safeInt();
      return x;
+}
+
+int typeMenu()
+{
+       
+     cout<<"Data File\n---------------------\n"
+     "1. RandomData\n"
+     "2. WorstCase\n"
+     "3. BestCase\n" ;
+     "4. Saved File\n" ;
+
+    //get an int from the user
+     int x=safeInt();
+     return x;
+}
+
+void worstCase(int a[], int b){for(int i=0; i<b; i++) a[i] = b-i;}
+
+void bestCase(int a[], int b){for(int i=0; i<b; i++) a[i] = i;}
+
+void randomCase(int a[], int b)
+{
+     srand(time(0));
+     for(int i=0; i<b; i++) a[i]=rand()%9001;
 }
